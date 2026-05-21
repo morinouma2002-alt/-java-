@@ -1,0 +1,61 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+
+class Transaction {
+    String date;
+    String category;
+    int amount;
+    String memo;
+}
+
+public class Main1 {
+    public static void main(String[] args) {
+        Transaction t = new Transaction();
+        t.date = "2026-05-13";
+        t.category = "食費";
+        t.amount = -500;
+        t.memo = "昼ごはん";
+
+        Transaction t2 = new Transaction();
+        t2.date = "2026-05-13";
+        t2.category = "バイト";
+        t2.amount = 5000;
+        t2.memo = "夜ごはん";
+
+        ArrayList<Transaction> a1 = new ArrayList<>();
+        a1.add(t);
+        a1.add(t2);
+
+        int income = 0;
+        int expense = 0;
+
+        for (int i = 0; i < a1.size(); i++) {
+            if (a1.get(i).amount >= 0) {
+                income += a1.get(i).amount;
+            } else {
+                expense += a1.get(i).amount;
+            }
+        }
+
+        JFrame frame = new JFrame("家計簿アプリ");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 1));
+
+        JLabel titleLabel = new JLabel("家計簿アプリ", SwingConstants.CENTER);
+        JLabel incomeLabel = new JLabel("収入: " + income + "円", SwingConstants.CENTER);
+        JLabel expenseLabel = new JLabel("支出: " + Math.abs(expense) + "円", SwingConstants.CENTER);
+        JLabel balanceLabel = new JLabel("残高: " + (income + expense) + "円", SwingConstants.CENTER);
+
+        panel.add(titleLabel);
+        panel.add(incomeLabel);
+        panel.add(expenseLabel);
+        panel.add(balanceLabel);
+
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+}
